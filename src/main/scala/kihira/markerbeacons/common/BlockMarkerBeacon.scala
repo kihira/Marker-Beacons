@@ -47,8 +47,7 @@ object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
   override def onBlockActivated(world : World, xPos : Int, yPos : Int, zPos : Int, entityPlayer : EntityPlayer, metadata : Int, p_149727_7_ : Float, p_149727_8_ : Float, p_149727_9_ : Float): Boolean = {
     if (world.isRemote) {
       entityPlayer.openGui(Beacons, 0, world, xPos, yPos, zPos)
-      return true
     }
-    false
+    true
   }
 }

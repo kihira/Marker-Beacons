@@ -28,7 +28,7 @@ object TileEntityMarkerBeaconRenderer extends TileEntitySpecialRenderer {
 
   override def renderTileEntityAt(tileEntity: TileEntity, x: Double, y: Double, z: Double, partialTicks: Float): Unit = {
     val beaconData: BeaconData = tileEntity.asInstanceOf[TileEntityMarkerBeacon].beaconData
-    if (beaconData != null) {
+    if (beaconData != null && !tileEntity.getWorldObj.isBlockIndirectlyGettingPowered(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord)) {
       val player: EntityPlayer = Minecraft.getMinecraft.thePlayer
       val xDiff: Double = player.posX - 0.5F - tileEntity.xCoord
       val zDiff: Double = player.posZ - 0.5F - tileEntity.zCoord
