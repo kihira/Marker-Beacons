@@ -1,0 +1,16 @@
+[
+{
+  "modid": "corruption",
+  "name": "Corruption",
+  "description": "Can you remove the corruption before it consumes you?",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/kihira/modjam4",
+  "updateUrl": "https://github.com/kihira/modjam4",
+  "authorList": ["Kihira"],
+  "credits": "Vazkii for the original idea",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
