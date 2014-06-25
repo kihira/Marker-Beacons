@@ -14,9 +14,11 @@
 
 package kihira.beacons.client.gui
 
+import java.util
+
 import kihira.beacons.client.icon.{IconManager, IconData}
 import kihira.beacons.client.render.RenderHelper
-import kihira.beacons.common.{BeaconData, PacketHandler, TileEntityMarkerBeacon}
+import kihira.beacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry
 import net.minecraft.client.gui._
@@ -24,6 +26,8 @@ import net.minecraft.client.renderer.Tessellator
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.input.Keyboard
 import org.lwjgl.opengl.GL11
+
+import scala.collection.JavaConversions._
 
 import scala.collection.mutable.ListBuffer
 
@@ -51,14 +55,31 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     val leftBorder: Int = (this.width - this.xSize) / 2
     val topBorder: Int = (this.height - this.ySize) / 2
 
-    this.textField = new GuiTextField(this.fontRendererObj, leftBorder + 150, topBorder + 135, 103, 12)
+    //Temp for now until we add support for adding in more
+    var textComp: TextComponent = null
+    var imageComp: ImageComponent = null
+
+    for (component: LogoComponent <- tileEntityMarkerBeacon.beaconData.components) {
+      component match {
+        case component: TextComponent => textComp = component
+        case component: ImageComponent => imageComp = component
+      }
+    }
+
+    this.textField = new GuiTextField(this.fontRendererObj, leftBorder + 140, topBorder + 135, 103, 12)
     this.textField.setTextColor(-1)
     this.textField.setDisabledTextColour(-1)
     this.textField.setEnableBackgroundDrawing(false)
     this.textField.setMaxStringLength(40)
-    this.textField.setText(tileEntityMarkerBeacon.beaconData.text)
+    if (textComp != null) {
+      this.textField.setText(textComp.text)
+      this.textField.setTextColor(textComp.textColour)
+    }
 
     this.listIcon = new GuiIconList(110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, IconManager.iconList)
+    if (imageComp != null) {
+      this.listIcon.currentIndex = IconManager.iconList.indexOf(imageComp.iconData)
+    }
 
     this.sliderHeight = new GuiSlider(2, leftBorder + 5, topBorder + 5, 120, 20, "Height", 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
     this.sliderScale = new GuiSlider(3, leftBorder + 5, topBorder + 27, 120, 20, "Scale", 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
@@ -135,8 +156,16 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     beaconData.facePlayerY = this.toggleYAxis.enabled
     beaconData.count = this.sliderCount.currentValue.asInstanceOf[Int]
     beaconData.rotationSpeed = this.sliderRotationSpeed.currentValue
-    beaconData.text = this.textField.getText
-    beaconData.iconData = IconManager.iconList(this.listIcon.currentIndex)
+    beaconData.components = new util.ArrayList[LogoComponent]()
+
+    val textComp: TextComponent  = new TextComponent
+    textComp.text = this.textField.getText
+    textComp.textColour = 0xFFFFFF
+    beaconData.components.add(textComp)
+
+    val imageComp: ImageComponent  = new ImageComponent
+    imageComp.iconData = IconManager.iconList(this.listIcon.currentIndex)
+    beaconData.components.add(imageComp)
 
     PacketHandler.eventChannel.sendToServer(PacketHandler.createBeaconDataPacket(tileEntityMarkerBeacon.getWorldObj.provider.dimensionId,
       tileEntityMarkerBeacon.xCoord, tileEntityMarkerBeacon.yCoord, tileEntityMarkerBeacon.zCoord, beaconData))
@@ -223,7 +252,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
         GL11.glPopMatrix()
 
         val fontRenderer: FontRenderer = Minecraft.getMinecraft.fontRenderer
-        fontRenderer.drawString(iconData.iconName, left + 20, y + 5, 0xFFFFFF)
+        fontRenderer.drawString(iconData.iconName, left + 22, y + 5, 0xFFFFFF)
         GL11.glColor4f(1F, 1F, 1F, 1F)
       }
 
