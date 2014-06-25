@@ -12,10 +12,10 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.common
 
 import cpw.mods.fml.common.network.IGuiHandler
-import kihira.beacons.client.gui.GuiMarkerBeacon
+import kihira.markerbeacons.client.gui.GuiMarkerBeacon
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 

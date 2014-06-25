@@ -12,13 +12,13 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.client.gui
+package kihira.markerbeacons.client.gui
 
 import java.util
 
-import kihira.beacons.client.icon.{IconManager, IconData}
-import kihira.beacons.client.render.RenderHelper
-import kihira.beacons.common._
+import kihira.markerbeacons.client.icon.{IconManager, IconData}
+import kihira.markerbeacons.client.render.RenderHelper
+import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry
 import net.minecraft.client.gui._
@@ -45,7 +45,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
   var sliderRotationSpeed: GuiSlider = null
   var listIcon: GuiIconList = null
 
-  val backgroundTexture: ResourceLocation = new ResourceLocation("beacons", "textures/gui/beacon.png")
+  val backgroundTexture: ResourceLocation = new ResourceLocation(Beacons.MOD_ID, "textures/gui/beacon.png")
   val xSize: Int = 256
   val ySize: Int = 200
 

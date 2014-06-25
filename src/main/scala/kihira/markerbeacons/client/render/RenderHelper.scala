@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.client.render
+package kihira.markerbeacons.client.render
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution

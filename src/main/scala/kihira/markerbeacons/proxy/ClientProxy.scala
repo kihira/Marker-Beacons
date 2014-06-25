@@ -12,18 +12,15 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.proxy
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
+import cpw.mods.fml.client.registry.ClientRegistry
+import kihira.markerbeacons.client.render.TileEntityMarkerBeaconRenderer
+import kihira.markerbeacons.common.TileEntityMarkerBeacon
 
-abstract class LogoComponent {
+class ClientProxy extends CommonProxy {
 
-  var title: String
-  var xOffset: Float = 0
-  var yOffset: Float = 0
-  var zOffset: Float = 0
-  var scale: Float = 1
-  var clazz: String = getClass.getCanonicalName
-
-  @SideOnly(Side.CLIENT) def drawComponent()
+  override def registerRenderers() {
+    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityMarkerBeacon], TileEntityMarkerBeaconRenderer)
+  }
 }

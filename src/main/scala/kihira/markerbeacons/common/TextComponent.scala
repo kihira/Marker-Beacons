@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.common
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.Minecraft

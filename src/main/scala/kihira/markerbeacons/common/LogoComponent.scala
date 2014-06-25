@@ -12,23 +12,18 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
-
-import java.util
+package kihira.markerbeacons.common
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 
-@SideOnly(Side.CLIENT) class BeaconData {
-  var facePlayerY: Boolean = false
-  var facePlayerX: Boolean = false
+abstract class LogoComponent {
 
-  var height: Float = 3F
-  var rotationSpeed: Float = 2F
-  var angleY: Float = 0F
-  var angleX: Float = 0F
-  var count: Int = 1
-  var offset: Float = 2F
-  var scale: Float = 1F
-  
-  var components: util.List[LogoComponent] = new util.ArrayList[LogoComponent]()
+  var title: String
+  var xOffset: Float = 0
+  var yOffset: Float = 0
+  var zOffset: Float = 0
+  var scale: Float = 1
+  var clazz: String = getClass.getCanonicalName
+
+  @SideOnly(Side.CLIENT) def drawComponent()
 }

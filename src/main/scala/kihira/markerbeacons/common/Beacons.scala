@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.common
 
 import java.io.{FileWriter, File, FileReader, IOException}
 
@@ -22,8 +22,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{Mod, SidedProxy}
-import kihira.beacons.client.icon.{IconData, IconManager}
-import kihira.beacons.proxy.CommonProxy
+import kihira.markerbeacons.client.icon.{IconData, IconManager}
+import kihira.markerbeacons.proxy.CommonProxy
 import net.minecraft.creativetab.CreativeTabs
 import org.apache.logging.log4j.{Logger, LogManager}
 
@@ -33,16 +33,15 @@ object Beacons {
   final val MOD_ID = "markerbeacons"
   final val logger: Logger = LogManager.getLogger(MOD_ID)
 
-  @SidedProxy(clientSide = "kihira.beacons.proxy.ClientProxy", serverSide = "kihira.beacons.proxy.CommonProxy")
+  @SidedProxy(clientSide = "kihira.markerbeacons.proxy.ClientProxy", serverSide = "kihira.markerbeacons.proxy.CommonProxy")
   var proxy: CommonProxy = null
 
   @Mod.EventHandler
   def onPreInit(e: FMLPreInitializationEvent) {
-    GameRegistry.registerBlock(MarkerBeaconBlock.setCreativeTab(CreativeTabs.tabBlock), "beacon")
-    GameRegistry.registerTileEntity(classOf[TileEntityMarkerBeacon], "beacons:beacon")
+    GameRegistry.registerBlock(BlockMarkerBeacon, "blockMarkerBeacon")
+    GameRegistry.registerTileEntity(classOf[TileEntityMarkerBeacon], Beacons.MOD_ID + ":markerBeacon")
 
     proxy.registerRenderers()
-
     NetworkRegistry.INSTANCE.registerGuiHandler(Beacons, GuiHandler)
 
     if (e.getSide.isClient) loadIcons()

@@ -12,9 +12,9 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.client.render
+package kihira.markerbeacons.client.render
 
-import kihira.beacons.common._
+import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer

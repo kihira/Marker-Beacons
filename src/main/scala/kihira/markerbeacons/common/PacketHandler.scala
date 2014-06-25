@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.common
 
 import com.google.gson.Gson
 import cpw.mods.fml.common.FMLCommonHandler

@@ -12,15 +12,10 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.proxy
+package kihira.markerbeacons.proxy
 
-import cpw.mods.fml.client.registry.ClientRegistry
-import kihira.beacons.client.render.TileEntityMarkerBeaconRenderer
-import kihira.beacons.common.TileEntityMarkerBeacon
+class CommonProxy {
 
-class ClientProxy extends CommonProxy {
+  def registerRenderers() {}
 
-  override def registerRenderers() {
-    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityMarkerBeacon], TileEntityMarkerBeaconRenderer)
-  }
 }

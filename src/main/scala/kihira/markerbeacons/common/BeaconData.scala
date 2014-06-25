@@ -12,10 +12,23 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.proxy
+package kihira.markerbeacons.common
 
-class CommonProxy {
+import java.util
 
-  def registerRenderers() {}
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
+@SideOnly(Side.CLIENT) class BeaconData {
+  var facePlayerY: Boolean = false
+  var facePlayerX: Boolean = false
+
+  var height: Float = 3F
+  var rotationSpeed: Float = 2F
+  var angleY: Float = 0F
+  var angleX: Float = 0F
+  var count: Int = 1
+  var offset: Float = 2F
+  var scale: Float = 1F
+  
+  var components: util.List[LogoComponent] = new util.ArrayList[LogoComponent]()
 }

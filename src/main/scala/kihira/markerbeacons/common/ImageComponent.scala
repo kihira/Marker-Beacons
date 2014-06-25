@@ -12,10 +12,10 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.common
+package kihira.markerbeacons.common
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import kihira.beacons.client.icon.{IconData, IconManager}
+import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import net.minecraft.client.renderer.Tessellator
 
 class ImageComponent extends LogoComponent {

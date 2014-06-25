@@ -12,11 +12,11 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.client.icon
+package kihira.markerbeacons.client.icon
 
 import java.io.{File, IOException}
 
-import kihira.beacons.common.Beacons
+import kihira.markerbeacons.common.Beacons
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.{ITextureObject, TextureUtil}
 import org.lwjgl.opengl.GL11

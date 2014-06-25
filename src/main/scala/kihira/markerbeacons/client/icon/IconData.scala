@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-package kihira.beacons.client.icon
+package kihira.markerbeacons.client.icon
 
 import net.minecraft.util.ResourceLocation
 
