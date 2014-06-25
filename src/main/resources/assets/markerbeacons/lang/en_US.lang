@@ -1,0 +1,14 @@
+tile.markerbeacon.name=Marker Beacon
+gui.button.done=Done
+gui.button.cancel=Cancel
+gui.button.height=Height
+gui.button.scale=Scale
+gui.button.offset=Offset
+gui.button.facex=Face X Axis
+gui.button.facex.tooltip=Face the player along the X axis
+gui.button.facey=Face Y Axis
+gui.button.facey.tooltip=Face the player along the Y axis
+gui.button.anglex=X Angle
+gui.button.angleyY Angle
+gui.button.count=Count
+gui.button.rotspeed=Rotation Speed
