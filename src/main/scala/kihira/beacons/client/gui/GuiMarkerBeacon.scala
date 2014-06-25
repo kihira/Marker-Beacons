@@ -23,12 +23,12 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry
 import net.minecraft.client.gui._
 import net.minecraft.client.renderer.Tessellator
-import net.minecraft.util.ResourceLocation
+import net.minecraft.util.{StatCollector, ResourceLocation}
 import org.lwjgl.input.Keyboard
 import org.lwjgl.opengl.GL11
 
 import scala.collection.JavaConversions._
-
+import scala.util.control.Breaks._
 import scala.collection.mutable.ListBuffer
 
 class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends GuiScreen {
@@ -81,21 +81,21 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
       this.listIcon.currentIndex = IconManager.iconList.indexOf(imageComp.iconData)
     }
 
-    this.sliderHeight = new GuiSlider(2, leftBorder + 5, topBorder + 5, 120, 20, "Height", 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
-    this.sliderScale = new GuiSlider(3, leftBorder + 5, topBorder + 27, 120, 20, "Scale", 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
-    this.sliderOffset = new GuiSlider(4, leftBorder + 5, topBorder + 49, 120, 20, "Offset", 0, 20, tileEntityMarkerBeacon.beaconData.offset, 2)
-    this.toggleXAxis = new GuiButtonToggle(5, leftBorder + 5, topBorder + this.ySize - 47, 80, 20, "Face X/Z Axis")
-    this.toggleYAxis = new GuiButtonToggle(6, leftBorder + 5 + 82, topBorder + this.ySize - 47, 80, 20, "Face Y Axis")
-    this.sliderXAngle = new GuiSlider(7, leftBorder + 5, topBorder + this.ySize - 25, 80, 20, "X", 0, 360, tileEntityMarkerBeacon.beaconData.angleX, 1)
-    this.sliderYAngle = new GuiSlider(8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 20, "Y", 0, 360, tileEntityMarkerBeacon.beaconData.angleY, 1)
-    this.sliderCount = new GuiSlider(9, leftBorder + 5, topBorder + 71, 120, 20, "Count", 1, 25, tileEntityMarkerBeacon.beaconData.count, 0)
-    this.sliderRotationSpeed = new GuiSlider(10, leftBorder + 5, topBorder + 93, 120 ,20, "Rotation Speed", -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, 2)
+    this.sliderHeight = new GuiSlider(2, leftBorder + 5, topBorder + 5, 120, 20, StatCollector.translateToLocal("gui.button.height"), 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
+    this.sliderScale = new GuiSlider(3, leftBorder + 5, topBorder + 27, 120, 20, StatCollector.translateToLocal("gui.button.scale"), 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
+    this.sliderOffset = new GuiSlider(4, leftBorder + 5, topBorder + 49, 120, 20, StatCollector.translateToLocal("gui.button.offset"), 0, 20, tileEntityMarkerBeacon.beaconData.offset, 2)
+    this.toggleXAxis = new GuiButtonToggle(5, leftBorder + 5, topBorder + this.ySize - 47, 80, 20, "facex")
+    this.toggleYAxis = new GuiButtonToggle(6, leftBorder + 5 + 82, topBorder + this.ySize - 47, 80, 20, "facey")
+    this.sliderXAngle = new GuiSlider(7, leftBorder + 5, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleX, 1)
+    this.sliderYAngle = new GuiSlider(8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleY, 1)
+    this.sliderCount = new GuiSlider(9, leftBorder + 5, topBorder + 71, 120, 20, StatCollector.translateToLocal("gui.button.count"), 1, 25, tileEntityMarkerBeacon.beaconData.count, 0)
+    this.sliderRotationSpeed = new GuiSlider(10, leftBorder + 5, topBorder + 93, 120 ,20, StatCollector.translateToLocal("gui.button.rotspeed"), -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, 2)
 
     this.toggleXAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerX
     this.toggleYAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerY
 
-    this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(new GuiButton(0, leftBorder + this.xSize - 55, topBorder + this.ySize - 25, 50, 20, "Done"))
-    this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(new GuiButton(1, leftBorder + this.xSize - 55, topBorder + this.ySize - 46, 50, 20, "Cancel"))
+    this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(new GuiButton(0, leftBorder + this.xSize - 55, topBorder + this.ySize - 25, 50, 20, StatCollector.translateToLocal("gui.button.done")))
+    this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(new GuiButton(1, leftBorder + this.xSize - 55, topBorder + this.ySize - 46, 50, 20, StatCollector.translateToLocal("gui.button.cancel")))
     this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(this.sliderHeight)
     this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(this.sliderScale)
     this.buttonList.asInstanceOf[java.util.List[GuiButton]].add(this.sliderOffset)
@@ -191,12 +191,27 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
 /*    GL11.glDisable(GL11.GL_LIGHTING)
     GL11.glDisable(GL11.GL_BLEND)*/
     this.textField.drawTextBox()
+
+    breakable {
+      for (button <- this.buttonList) {
+        if (button.asInstanceOf[GuiButton].func_146115_a) {
+          button.asInstanceOf[GuiButton].func_146111_b(par1, par2)
+        }
+      }
+    }
   }
 
-  class GuiButtonToggle(id: Int, xPos: Int, yPos: Int, width: Int, height: Int, text: String) extends GuiButton(id, xPos, yPos, width, height, text) {
+  class GuiButtonToggle(id: Int, xPos: Int, yPos: Int, width: Int, height: Int, text: String) extends GuiButtonTooltip(id, xPos, yPos, width, height, text) {
 
     override def mousePressed(p_146116_1_ : Minecraft, p_146116_2_ : Int, p_146116_3_ : Int): Boolean = {
       this.visible && p_146116_2_ >= this.xPosition && p_146116_3_ >= this.yPosition && p_146116_2_ < this.xPosition + this.width && p_146116_3_ < this.yPosition + this.height
+    }
+  }
+
+  class GuiButtonTooltip(id: Int, xPos: Int, yPos: Int, width: Int, height: Int, text: String) extends GuiButton(id, xPos, yPos, width, height, StatCollector.translateToLocal("gui.button." + text)) {
+
+    override def func_146111_b(x: Int, y: Int) {
+      drawCreativeTabHoveringText(StatCollector.translateToLocal("gui.button." + text + ".tooltip"), x, y)
     }
   }
 
