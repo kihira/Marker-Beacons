@@ -66,7 +66,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
       }
     }
 
-    this.textField = new GuiTextField(this.fontRendererObj, leftBorder + 140, topBorder + 135, 103, 12)
+    this.textField = new GuiTextField(this.fontRendererObj, leftBorder + 143, topBorder + 134, 103, 12)
     this.textField.setTextColor(-1)
     this.textField.setDisabledTextColour(-1)
     this.textField.setEnableBackgroundDrawing(false)
@@ -267,9 +267,11 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
           GL11.glTranslatef(18F / iconData.height, 18F / iconData.height, 0F)
           GL11.glScalef(18F / iconData.height, 18F / iconData.height, 1F)
         }
+        //Draw the icon on a GUI
         Gui.func_146110_a(0, 0, iconData.minU, iconData.minV, iconData.width, iconData.height, iconData.textureXSize, iconData.textureYSize)
         GL11.glPopMatrix()
 
+        //Render the icon name
         val fontRenderer: FontRenderer = Minecraft.getMinecraft.fontRenderer
         fontRenderer.drawString(iconData.iconName, left + 22, y + 5, 0xFFFFFF)
         GL11.glColor4f(1F, 1F, 1F, 1F)
