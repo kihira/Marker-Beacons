@@ -14,9 +14,9 @@
 
 package kihira.markerbeacons.common
 
-import java.io.{FileWriter, File, FileReader, IOException}
+import java.io.{File, FileReader, FileWriter, IOException}
 
-import com.google.gson.stream.{JsonWriter, JsonReader}
+import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.gson.{Gson, GsonBuilder}
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.network.NetworkRegistry
@@ -24,8 +24,7 @@ import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{Mod, SidedProxy}
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import kihira.markerbeacons.proxy.CommonProxy
-import net.minecraft.creativetab.CreativeTabs
-import org.apache.logging.log4j.{Logger, LogManager}
+import org.apache.logging.log4j.{LogManager, Logger}
 
 @Mod(modid = Beacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala")
 object Beacons {

@@ -14,7 +14,6 @@
 
 package kihira.markerbeacons.common
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import org.lwjgl.opengl.GL11

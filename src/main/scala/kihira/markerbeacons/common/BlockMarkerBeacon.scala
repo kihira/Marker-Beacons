@@ -14,7 +14,6 @@
 
 package kihira.markerbeacons.common
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.block.material.Material
 import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.client.renderer.texture.IIconRegister

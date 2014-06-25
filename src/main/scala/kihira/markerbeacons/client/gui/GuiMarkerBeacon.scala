@@ -16,20 +16,20 @@ package kihira.markerbeacons.client.gui
 
 import java.util
 
-import kihira.markerbeacons.client.icon.{IconManager, IconData}
+import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import kihira.markerbeacons.client.render.RenderHelper
 import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry
 import net.minecraft.client.gui._
 import net.minecraft.client.renderer.Tessellator
-import net.minecraft.util.{StatCollector, ResourceLocation}
+import net.minecraft.util.{ResourceLocation, StatCollector}
 import org.lwjgl.input.Keyboard
 import org.lwjgl.opengl.GL11
 
 import scala.collection.JavaConversions._
-import scala.util.control.Breaks._
 import scala.collection.mutable.ListBuffer
+import scala.util.control.Breaks._
 
 class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends GuiScreen {
 
