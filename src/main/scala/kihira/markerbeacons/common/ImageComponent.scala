@@ -17,6 +17,7 @@ package kihira.markerbeacons.common
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import net.minecraft.client.renderer.Tessellator
+import org.lwjgl.opengl.GL11
 
 class ImageComponent extends LogoComponent {
 
@@ -33,6 +34,10 @@ class ImageComponent extends LogoComponent {
       //This allows for off shaped textures (need to test with larger width then height
       val yOffset: Float = if (iconData.width > iconData.height) iconData.height.asInstanceOf[Float] / iconData.width.asInstanceOf[Float] else 1
       val xOffset: Float = if (iconData.width < iconData.height) iconData.width.asInstanceOf[Float]/ iconData.height.asInstanceOf[Float] else 1
+
+      //Adjust the position depending on if the icon is odd sized
+      if (yOffset != 1) GL11.glTranslatef(0F, yOffset / 2, 0F)
+      if (xOffset != 1) GL11.glTranslatef(0F, xOffset / 2, 0F)
 
       IconManager.bindTexture(iconData)
       tessellator.startDrawingQuads()

@@ -258,9 +258,13 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
         GL11.glTranslatef(left + 1, y - 1, 0)
         //If wider then taller (or equal), scale along width
         if (iconData.width >= iconData.height) {
+          //Center icon
+          if (iconData.width > iconData.height) GL11.glTranslatef(0F, 18F / iconData.width, 0F)
           GL11.glScalef(18F / iconData.width, 18F / iconData.width, 1F)
         }
         else {
+          //Center the icon
+          GL11.glTranslatef(18F / iconData.height, 18F / iconData.height, 0F)
           GL11.glScalef(18F / iconData.height, 18F / iconData.height, 1F)
         }
         Gui.func_146110_a(0, 0, iconData.minU, iconData.minV, iconData.width, iconData.height, iconData.textureXSize, iconData.textureYSize)
