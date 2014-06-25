@@ -17,7 +17,7 @@ package kihira.markerbeacons.common
 import com.google.gson.Gson
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
-import cpw.mods.fml.common.network.FMLNetworkEvent.ServerCustomPacketEvent
+import cpw.mods.fml.common.network.FMLNetworkEvent.{ClientCustomPacketEvent, ServerCustomPacketEvent}
 import cpw.mods.fml.common.network.internal.FMLProxyPacket
 import cpw.mods.fml.common.network.{ByteBufUtils, FMLEventChannel, NetworkRegistry}
 import io.netty.buffer.{ByteBuf, Unpooled}
@@ -28,6 +28,13 @@ object PacketHandler {
 
   val eventChannel: FMLEventChannel = NetworkRegistry.INSTANCE.newEventDrivenChannel("beacons")
   eventChannel.register(this)
+
+  @SubscribeEvent
+  def onClientPacket(event: ClientCustomPacketEvent) {
+    event.packet.payload().readByte() match {
+      case 0 => handleBeaconDataPacket(event.packet.payload())
+    }
+  }
 
   @SubscribeEvent
   def onServerPacket(event: ServerCustomPacketEvent) {
@@ -46,12 +53,10 @@ object PacketHandler {
 
     if (world != null && world.getTileEntity(x, y, z).isInstanceOf[TileEntityMarkerBeacon]) {
       val tileEntity: TileEntityMarkerBeacon = world.getTileEntity(x, y, z).asInstanceOf[TileEntityMarkerBeacon]
-      tileEntity.beaconDataJson = beaconDataJson
+      tileEntity.beaconData = GsonHelper.getGson.fromJson(beaconDataJson, classOf[BeaconData])
       tileEntity.markDirty()
     }
-    else {
-      Beacons.logger.log(Level.WARN, "Failed to update Beacon Data at (%s) %s, %s, %s with %s", Array(dimID, x, y, z, beaconDataJson))
-    }
+    else Beacons.logger.log(Level.WARN, "Failed to update Beacon Data at (%s) %s, %s, %s with %s", Array(dimID, x, y, z, beaconDataJson))
   }
 
   def createBeaconDataPacket(dimID: Int, x: Int, y: Int, z: Int, beaconData: BeaconData): FMLProxyPacket = {

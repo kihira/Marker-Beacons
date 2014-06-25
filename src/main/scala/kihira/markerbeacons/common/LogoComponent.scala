@@ -25,5 +25,6 @@ abstract class LogoComponent {
   var scale: Float = 1
   var clazz: String = getClass.getCanonicalName
 
-  @SideOnly(Side.CLIENT) def drawComponent()
+  @SideOnly(Side.CLIENT)
+  def drawComponent()
 }

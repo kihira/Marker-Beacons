@@ -23,10 +23,10 @@ class TextComponent extends LogoComponent {
 
   override var title: String = "Text"
 
-  var text: String = "Banana"
+  var text: String = ""
   var textColour: Int = 0xFFFFFF
 
-  @SideOnly(Side.CLIENT) override def drawComponent(): Unit = {
+  override def drawComponent(): Unit = {
     val fontRenderer: FontRenderer = Minecraft.getMinecraft.fontRenderer
     GL11.glScalef(0.05F, 0.05F, 0)
     GL11.glTranslatef(-fontRenderer.getStringWidth(text), 25F, 0F)

@@ -15,9 +15,11 @@
 package kihira.markerbeacons.proxy
 
 import cpw.mods.fml.client.registry.ClientRegistry
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import kihira.markerbeacons.client.render.TileEntityMarkerBeaconRenderer
 import kihira.markerbeacons.common.TileEntityMarkerBeacon
 
+@SideOnly(Side.CLIENT)
 class ClientProxy extends CommonProxy {
 
   override def registerRenderers() {

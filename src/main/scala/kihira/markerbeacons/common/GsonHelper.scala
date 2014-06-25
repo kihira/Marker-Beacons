@@ -21,7 +21,11 @@ import com.google.gson._
 object GsonHelper {
 
   def getGson: Gson = {
-    new GsonBuilder().registerTypeAdapter(classOf[LogoComponent], new SubClassDeserializer[LogoComponent]).create()
+    new GsonBuilder()
+      .registerTypeAdapter(classOf[ImageComponent], new SubClassDeserializer[ImageComponent])
+      .registerTypeAdapter(classOf[TextComponent], new SubClassDeserializer[TextComponent])
+      .registerTypeAdapter(classOf[LogoComponent], new SubClassDeserializer[LogoComponent])
+      .create()
   }
 
   class SubClassDeserializer[T] extends JsonDeserializer[T] {

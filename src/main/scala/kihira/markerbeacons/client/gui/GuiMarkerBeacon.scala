@@ -78,7 +78,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
 
     this.listIcon = new GuiIconList(110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, IconManager.iconList)
     if (imageComp != null) {
-      this.listIcon.currentIndex = IconManager.iconList.indexOf(imageComp.iconData)
+      this.listIcon.currentIndex = this.listIcon.iconList.indexOf(imageComp.iconData)
     }
 
     this.sliderHeight = new GuiSlider(2, leftBorder + 5, topBorder + 5, 120, 20, StatCollector.translateToLocal("gui.button.height"), 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
@@ -164,7 +164,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     beaconData.components.add(textComp)
 
     val imageComp: ImageComponent  = new ImageComponent
-    imageComp.iconData = IconManager.iconList(this.listIcon.currentIndex)
+    if (this.listIcon.currentIndex > 0 && this.listIcon.currentIndex < this.listIcon.iconList.size) imageComp.iconData = this.listIcon.iconList(this.listIcon.currentIndex)
     beaconData.components.add(imageComp)
 
     PacketHandler.eventChannel.sendToServer(PacketHandler.createBeaconDataPacket(tileEntityMarkerBeacon.getWorldObj.provider.dimensionId,
@@ -215,7 +215,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     }
   }
 
-  class GuiIconList(width: Int, height: Int, top: Int, bottom: Int, leftM: Int, iconList: ListBuffer[IconData]) extends GuiListExtended(Minecraft.getMinecraft, width, height, top, bottom, 20) {
+  class GuiIconList(width: Int, height: Int, top: Int, bottom: Int, leftM: Int, val iconList: ListBuffer[IconData]) extends GuiListExtended(Minecraft.getMinecraft, width, height, top, bottom, 20) {
     this.left = leftM
     this.right = this.left + width
 

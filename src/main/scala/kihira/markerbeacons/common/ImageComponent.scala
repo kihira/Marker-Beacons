@@ -14,7 +14,6 @@
 
 package kihira.markerbeacons.common
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import net.minecraft.client.renderer.Tessellator
 import org.lwjgl.opengl.GL11
@@ -25,7 +24,7 @@ class ImageComponent extends LogoComponent {
 
   var iconData: IconData = IconManager.iconList(0)
 
-  @SideOnly(Side.CLIENT) override def drawComponent() {
+  override def drawComponent() {
     if (iconData != null) {
       val tessellator: Tessellator = Tessellator.instance
       //Scales the UV positions depending on the size of the base texture imagine

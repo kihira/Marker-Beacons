@@ -33,13 +33,13 @@ object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
   setBlockName("blockMarkerBeacon")
   setBlockTextureName(Beacons.MOD_ID + ":markerbeacon")
 
-  @SideOnly(Side.CLIENT) var topIcon: IIcon = null
+  private var topIcon: IIcon = null
 
   override def createNewTileEntity(var1: World, var2: Int): TileEntity = new TileEntityMarkerBeacon
 
-  @SideOnly(Side.CLIENT) override def getIcon(side : Int, meta : Int): IIcon = if (side == 1) this.topIcon else this.blockIcon
+  override def getIcon(side : Int, meta : Int): IIcon = if (side == 1) this.topIcon else this.blockIcon
 
-  @SideOnly(Side.CLIENT) override def registerBlockIcons(iconRegister : IIconRegister) {
+  override def registerBlockIcons(iconRegister : IIconRegister) {
     this.blockIcon = iconRegister.registerIcon(this.getTextureName + "_side")
     this.topIcon = iconRegister.registerIcon(this.getTextureName + "_top")
   }

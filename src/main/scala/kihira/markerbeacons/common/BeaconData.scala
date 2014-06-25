@@ -16,9 +16,7 @@ package kihira.markerbeacons.common
 
 import java.util
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
-
-@SideOnly(Side.CLIENT) class BeaconData {
+class BeaconData {
   var facePlayerY: Boolean = false
   var facePlayerX: Boolean = false
 

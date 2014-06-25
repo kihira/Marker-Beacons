@@ -14,9 +14,6 @@
 
 package kihira.markerbeacons.common
 
-import com.google.gson.Gson
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity
 import net.minecraft.network.{NetworkManager, Packet}
@@ -25,25 +22,24 @@ import net.minecraft.util.AxisAlignedBB
 
 class TileEntityMarkerBeacon extends TileEntity {
 
-  @SideOnly(Side.CLIENT) var beaconData: BeaconData = new BeaconData
-  var beaconDataJson: String = ""
+  var beaconData: BeaconData = new BeaconData
 
   override def readFromNBT(nbtTagCompound: NBTTagCompound) {
     super.readFromNBT(nbtTagCompound)
 
-    this.beaconDataJson = nbtTagCompound.getString("BeaconData")
+    this.beaconData = GsonHelper.getGson.fromJson(nbtTagCompound.getString("BeaconData"), classOf[BeaconData])
+    println(nbtTagCompound.getString("BeaconData"))
+    this.beaconData
   }
 
   override def writeToNBT(nbtTagCompound: NBTTagCompound) {
     super.writeToNBT(nbtTagCompound)
 
-    nbtTagCompound.setString("BeaconData", this.beaconDataJson)
+    nbtTagCompound.setString("BeaconData", GsonHelper.getGson.toJson(this.beaconData))
   }
 
-  @SideOnly(Side.CLIENT) override def onDataPacket(net: NetworkManager, pkt: S35PacketUpdateTileEntity) {
+  override def onDataPacket(net: NetworkManager, pkt: S35PacketUpdateTileEntity) {
     this.readFromNBT(pkt.func_148857_g)
-    this.beaconData = GsonHelper.getGson.fromJson(this.beaconDataJson, classOf[BeaconData])
-    if (this.beaconData == null) this.beaconData = new BeaconData
     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord)
   }
 
@@ -57,9 +53,7 @@ class TileEntityMarkerBeacon extends TileEntity {
     pass == 0
   }
 
-  @SideOnly(Side.CLIENT)
   override def getRenderBoundingBox: AxisAlignedBB = {
     TileEntity.INFINITE_EXTENT_AABB
   }
-
 }

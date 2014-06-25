@@ -53,7 +53,7 @@ object TileEntityMarkerBeaconRenderer extends TileEntitySpecialRenderer {
             GL11.glPushMatrix()
             GL11.glColor4f(1F, 1F, 1F, 1F)
 
-            GL11.glTranslated(x + 0.5d, y + beaconData.height, z + 0.5d)
+            GL11.glTranslated(x + 0.5D, y + beaconData.height, z + 0.5D)
             if (beaconData.facePlayerX) GL11.glRotatef(-xAngle - 90F, 0.0F, 1.0F, 0.0F)
             else if (beaconData.rotationSpeed != 0) GL11.glRotatef(((System.nanoTime() / 10000000F) / beaconData.rotationSpeed) + (i * (360 / beaconData.count)), 0F, 1F, 0F)
             else GL11.glRotatef(beaconData.angleX + (i * (360 / beaconData.count)), 0F, 1F, 0F)
