@@ -56,4 +56,7 @@ class TileEntityMarkerBeacon extends TileEntity {
   override def getRenderBoundingBox: AxisAlignedBB = {
     TileEntity.INFINITE_EXTENT_AABB
   }
+
+  //We don't need to tick as this is more just storing data
+  override def canUpdate: Boolean = false
 }

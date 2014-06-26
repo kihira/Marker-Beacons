@@ -19,9 +19,10 @@ import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.IIcon
-import net.minecraft.world.World
+import net.minecraft.world.{IBlockAccess, World}
 
 object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
   setCreativeTab(CreativeTabs.tabDecorations)
@@ -49,4 +50,6 @@ object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
     }
     true
   }
+
+  override def isBeaconBase(worldObj: IBlockAccess, x: Int, y: Int, z: Int, beaconX: Int, beaconY: Int, beaconZ: Int): Boolean = true
 }
