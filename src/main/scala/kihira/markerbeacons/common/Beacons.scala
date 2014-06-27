@@ -14,7 +14,7 @@
 
 package kihira.markerbeacons.common
 
-import java.io.{File, FileReader, FileWriter, IOException}
+import java.io._
 
 import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.gson.{Gson, GsonBuilder}
@@ -24,6 +24,7 @@ import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{Mod, SidedProxy}
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import kihira.markerbeacons.proxy.CommonProxy
+import org.apache.commons.io.IOUtils
 import org.apache.logging.log4j.{LogManager, Logger}
 
 @Mod(modid = Beacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala")
@@ -53,20 +54,23 @@ object Beacons {
 
     try {
       if (!iconsDir.exists) {
-        iconsFile.setWritable(true)
-        iconsFile.setReadable(true)
         iconsDir.mkdirs() //Make the missing directories
       }
       if (!iconsFile.exists) {
-        iconsFile.setWritable(true)
-        iconsFile.setReadable(true)
         iconsFile.createNewFile() //Make the missing file
 
-        val jsonWriter: JsonWriter = new JsonWriter(new FileWriter(iconsFile))
-        jsonWriter.beginArray()
-        gson.toJson(gson.toJsonTree(new IconData), jsonWriter)
-        jsonWriter.endArray()
-        jsonWriter.close()
+        val fileWriter: FileWriter = new FileWriter(iconsFile)
+        val inputStream: InputStream = Beacons.getClass.getResourceAsStream("/assets/markerbeacons/icons.json")
+
+        try {
+          IOUtils.write(IOUtils.toString(inputStream), fileWriter)
+        } catch {
+          case e: IOException => e.printStackTrace()
+          case e: NullPointerException => e.printStackTrace()
+        } finally {
+          if (inputStream != null) inputStream.close()
+          if (fileWriter != null) fileWriter.close()
+        }
       }
 
       val reader: JsonReader = new JsonReader(new FileReader(iconsFile))

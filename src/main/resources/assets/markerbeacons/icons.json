@@ -1,0 +1,294 @@
+[
+{
+	"iconName":"Swift",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":0,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Slow",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":18,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Pick",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":36,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Spoon",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":54,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Sword",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":72,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Broken Sword",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":90,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Poison Heart",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":108,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Heart",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":126,
+	"minV":198,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Invisibility",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":0,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Hunger",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":18,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Rabbit",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":36,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Vomit",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":54,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Eye",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":72,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Eye 2",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":90,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Shield",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":108,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Fire Shield",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":126,
+	"minV":216,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Water",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":0,
+	"minV":234,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Wither",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":18,
+	"minV":234,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Yellow Heart",
+	"textureName":"minecraft:textures/gui/container/inventory.png",
+	"minU":36,
+	"minV":234,
+	"width":18,
+	"height":18
+},
+{
+	"iconName":"Steve",
+	"textureName":"minecraft:textures/entity/steve.png",
+	"minU":8,
+	"minV":8,
+	"width":8,
+	"height":8,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Sheep",
+	"textureName":"minecraft:textures/entity/sheep/sheep.png",
+	"minU":7,
+	"minV":8,
+	"width":8,
+	"height":6,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Pig",
+	"textureName":"minecraft:textures/entity/pig/pig.png",
+	"minU":8,
+	"minV":8,
+	"width":8,
+	"height":8,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Cow",
+	"textureName":"minecraft:textures/entity/cow/cow.png",
+	"minU":6,
+	"minV":6,
+	"width":8,
+	"height":10,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Mooshroom",
+	"textureName":"minecraft:textures/entity/cow/mooshroom.png",
+	"minU":6,
+	"minV":6,
+	"width":8,
+	"height":10,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Spider",
+	"textureName":"minecraft:textures/entity/spider/spider.png",
+	"minU":40,
+	"minV":12,
+	"width":8,
+	"height":8,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Cave Spider",
+	"textureName":"minecraft:textures/entity/spider/cavespider.png",
+	"minU":40,
+	"minV":12,
+	"width":8,
+	"height":8,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Ocelot",
+	"textureName":"minecraft:textures/entity/cat/ocelot.png",
+	"minU":5,
+	"minV":5,
+	"width":5,
+	"height":5,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Black Cat",
+	"textureName":"minecraft:textures/entity/cat/black.png",
+	"minU":5,
+	"minV":5,
+	"width":5,
+	"height":5,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Red Cat",
+	"textureName":"minecraft:textures/entity/cat/red.png",
+	"minU":5,
+	"minV":5,
+	"width":5,
+	"height":5,
+	"textureXSize":64,
+	"textureYSize":32
+},
+{
+	"iconName":"Siamese Cat",
+	"textureName":"minecraft:textures/entity/cat/siamese.png",
+	"minU":5,
+	"minV":5,
+	"width":5,
+	"height":5,
+	"textureXSize":64,
+	"textureYSize":32
+},
+ {
+ 	"iconName":"Creeper",
+ 	"textureName":"minecraft:textures/entity/creeper/creeper.png",
+ 	"minU":8,
+ 	"minV":8,
+ 	"width":8,
+ 	"height":8,
+ 	"textureXSize":64,
+ 	"textureYSize":32
+ },
+{
+	"iconName":"Dragon",
+	"textureName":"minecraft:textures/entity/enderdragon/dragon.png",
+	"minU":128,
+	"minV":46,
+	"width":16,
+	"height":16,
+	"textureXSize":256,
+	"textureYSize":256
+},
+{
+	"iconName":"Ghast",
+	"textureName":"minecraft:textures/entity/ghast/ghast.png",
+	"minU":16,
+	"minV":16,
+	"width":16,
+	"height":16,
+	"textureXSize":64,
+	"textureYSize":32
+}
+]
