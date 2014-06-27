@@ -213,7 +213,7 @@
 },
 {
 	"iconName":"Cave Spider",
-	"textureName":"minecraft:textures/entity/spider/cavespider.png",
+	"textureName":"minecraft:textures/entity/spider/cave_spider.png",
 	"minU":40,
 	"minV":12,
 	"width":8,
