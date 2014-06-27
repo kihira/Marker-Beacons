@@ -23,7 +23,7 @@ object RenderHelper {
   //Following methods are copied from iChunUtil with permissions
   def startGlScissor(x: Int, y: Int, width: Int, height: Int) {
     val mc: Minecraft = Minecraft.getMinecraft
-    val reso: ScaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight)
+    val reso: ScaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight)
     val scaleW: Double = mc.displayWidth.asInstanceOf[Double] / reso.getScaledWidth_double
     val scaleH: Double = mc.displayHeight.asInstanceOf[Double] / reso.getScaledHeight_double
     GL11.glEnable(GL11.GL_SCISSOR_TEST)

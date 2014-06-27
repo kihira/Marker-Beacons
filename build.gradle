@@ -15,11 +15,12 @@ buildscript {
     }
 }
 
+apply plugin: 'scala'
 apply plugin: 'forge'
 
 version = "0.1.0"
-group= "kihira.waving" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Waving"
+group= "kihira.markerbeacons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "MarkerBeacons"
 
 minecraft {
     version = "1.7.10-10.13.0.1152"
