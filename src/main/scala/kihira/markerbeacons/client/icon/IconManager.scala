@@ -16,7 +16,7 @@ package kihira.markerbeacons.client.icon
 
 import java.io.{File, IOException}
 
-import kihira.markerbeacons.common.Beacons
+import kihira.markerbeacons.common.MarkerBeacons
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.{ITextureObject, TextureUtil}
 import org.lwjgl.opengl.GL11
@@ -58,7 +58,7 @@ object IconManager {
     }
     catch {
       case ioexception: IOException =>
-        Beacons.logger.warn("Failed to load icon texture: " + iconData, ioexception)
+        MarkerBeacons.logger.warn("Failed to load icon texture: " + iconData, ioexception)
         textureObjectCopy = TextureUtil.missingTexture
         this.iconTextureList += (iconData -> textureObjectCopy)
     }

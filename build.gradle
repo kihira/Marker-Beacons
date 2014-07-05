@@ -19,11 +19,17 @@ apply plugin: 'scala'
 apply plugin: 'forge'
 
 version = "0.1.0_beta1"
-group= "kihira.markerbeacons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "kihira.markerbeacons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "MarkerBeacons"
 
 minecraft {
     version = "1.7.10-10.13.0.1152"
+}
+
+dependencies {
+    compile files (
+            'libs/FoxLib-0.1.0-deobf.jar'
+    )
 }
 processResources {
     // replace stuff in mcmod.info, nothing else
@@ -38,6 +44,21 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
     }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'src'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+artifacts {
+    archives sourceJar
+    archives deobfJar
 }
 
 jar.doFirst {

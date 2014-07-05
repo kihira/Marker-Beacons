@@ -27,15 +27,15 @@ class TileEntityMarkerBeacon extends TileEntity {
   override def readFromNBT(nbtTagCompound: NBTTagCompound) {
     super.readFromNBT(nbtTagCompound)
 
-    this.beaconData = GsonHelper.getGson.fromJson(nbtTagCompound.getString("BeaconData"), classOf[BeaconData])
-    println(nbtTagCompound.getString("BeaconData"))
-    this.beaconData
+    if (nbtTagCompound.hasKey("BeaconData")) {
+      this.beaconData = MarkerBeacons.gson.fromJson(nbtTagCompound.getString("BeaconData"), classOf[BeaconData])
+    }
   }
 
   override def writeToNBT(nbtTagCompound: NBTTagCompound) {
     super.writeToNBT(nbtTagCompound)
 
-    nbtTagCompound.setString("BeaconData", GsonHelper.getGson.toJson(this.beaconData))
+    nbtTagCompound.setString("BeaconData", MarkerBeacons.gson.toJson(this.beaconData))
   }
 
   override def onDataPacket(net: NetworkManager, pkt: S35PacketUpdateTileEntity) {

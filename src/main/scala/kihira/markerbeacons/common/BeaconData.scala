@@ -16,7 +16,7 @@ package kihira.markerbeacons.common
 
 import java.util
 
-class BeaconData {
+class BeaconData extends Serializable {
   var facePlayerY: Boolean = false
   var facePlayerX: Boolean = false
 

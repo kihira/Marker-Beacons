@@ -14,6 +14,7 @@
 
 package kihira.markerbeacons.client.render
 
+import kihira.foxlib.common.gson.EntityHelper
 import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
@@ -30,12 +31,9 @@ object TileEntityMarkerBeaconRenderer extends TileEntitySpecialRenderer {
     val beaconData: BeaconData = tileEntity.asInstanceOf[TileEntityMarkerBeacon].beaconData
     if (beaconData != null && !tileEntity.getWorldObj.isBlockIndirectlyGettingPowered(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord)) {
       val player: EntityPlayer = Minecraft.getMinecraft.thePlayer
-      val xDiff: Double = player.posX - 0.5F - tileEntity.xCoord
-      val zDiff: Double = player.posZ - 0.5F - tileEntity.zCoord
-      val yDiff: Double = (player.posY + player.getEyeHeight) - (tileEntity.yCoord + beaconData.height)
-      val d3: Double = Math.sqrt(xDiff * xDiff + zDiff * zDiff)
-      val yAngle: Float = (-(Math.atan2(yDiff, d3) * 180.0D / Math.PI)).asInstanceOf[Float]
-      val xAngle: Float = (Math.atan2(zDiff, xDiff) * 180.0D / Math.PI).asInstanceOf[Float]
+      val pitchYaw: Array[Float] = EntityHelper.getPitchYawToEntity(tileEntity.xCoord - 0.5F, tileEntity.yCoord + beaconData.height, tileEntity.zCoord - 0.5, player)
+      val yAngle: Float = pitchYaw(0)
+      val xAngle: Float = pitchYaw(1)
 
       //Sets the lighting/brightness
       val i: Int = 15728880

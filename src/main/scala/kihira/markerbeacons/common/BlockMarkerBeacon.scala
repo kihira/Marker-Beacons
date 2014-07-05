@@ -19,7 +19,6 @@ import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.IIcon
 import net.minecraft.world.{IBlockAccess, World}
@@ -28,10 +27,9 @@ object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
   setCreativeTab(CreativeTabs.tabDecorations)
   setHardness(5F)
   setResistance(10.0F)
-  setLightLevel(1.0F)
   setStepSound(Block.soundTypeMetal)
   setBlockName("blockMarkerBeacon")
-  setBlockTextureName(Beacons.MOD_ID + ":markerbeacon")
+  setBlockTextureName(MarkerBeacons.MOD_ID + ":markerbeacon")
 
   private var topIcon: IIcon = null
 
@@ -46,7 +44,7 @@ object BlockMarkerBeacon extends Block(Material.rock) with ITileEntityProvider {
 
   override def onBlockActivated(world : World, xPos : Int, yPos : Int, zPos : Int, entityPlayer : EntityPlayer, metadata : Int, p_149727_7_ : Float, p_149727_8_ : Float, p_149727_9_ : Float): Boolean = {
     if (world.isRemote) {
-      entityPlayer.openGui(Beacons, 0, world, xPos, yPos, zPos)
+      entityPlayer.openGui(MarkerBeacons, 0, world, xPos, yPos, zPos)
     }
     true
   }

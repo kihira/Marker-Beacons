@@ -16,7 +16,7 @@ package kihira.markerbeacons.common
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 
-abstract class LogoComponent {
+abstract class LogoComponent extends Serializable {
 
   var title: String
   var xOffset: Float = 0

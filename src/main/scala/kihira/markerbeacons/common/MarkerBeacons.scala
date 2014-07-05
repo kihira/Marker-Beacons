@@ -16,22 +16,24 @@ package kihira.markerbeacons.common
 
 import java.io._
 
-import com.google.gson.stream.{JsonReader, JsonWriter}
-import com.google.gson.{Gson, GsonBuilder}
+import com.google.gson.Gson
+import com.google.gson.stream.JsonReader
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{Mod, SidedProxy}
+import kihira.foxlib.common.gson.GsonHelper
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import kihira.markerbeacons.proxy.CommonProxy
 import org.apache.commons.io.IOUtils
 import org.apache.logging.log4j.{LogManager, Logger}
 
-@Mod(modid = Beacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala")
-object Beacons {
+@Mod(modid = MarkerBeacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala", dependencies = "required-after:foxlib@[0.1.0,)")
+object MarkerBeacons {
 
   final val MOD_ID = "markerbeacons"
   final val logger: Logger = LogManager.getLogger(MOD_ID)
+  final val gson: Gson = GsonHelper.createGson(Seq(classOf[ImageComponent], classOf[TextComponent], classOf[LogoComponent]):_*)
 
   @SidedProxy(clientSide = "kihira.markerbeacons.proxy.ClientProxy", serverSide = "kihira.markerbeacons.proxy.CommonProxy")
   var proxy: CommonProxy = null
@@ -39,28 +41,27 @@ object Beacons {
   @Mod.EventHandler
   def onPreInit(e: FMLPreInitializationEvent) {
     GameRegistry.registerBlock(BlockMarkerBeacon, "blockMarkerBeacon")
-    GameRegistry.registerTileEntity(classOf[TileEntityMarkerBeacon], Beacons.MOD_ID + ":markerBeacon")
+    GameRegistry.registerTileEntity(classOf[TileEntityMarkerBeacon], MarkerBeacons.MOD_ID + ":markerBeacon")
 
     proxy.registerRenderers()
-    NetworkRegistry.INSTANCE.registerGuiHandler(Beacons, GuiHandler)
+    NetworkRegistry.INSTANCE.registerGuiHandler(MarkerBeacons, GuiHandler)
 
     if (e.getSide.isClient) loadIcons()
   }
 
   def loadIcons() {
-    val iconsDir: File = new File(Beacons.MOD_ID)
+    val iconsDir: File = new File(MarkerBeacons.MOD_ID)
     val iconsFile: File = new File(iconsDir + File.separator + "icons.json")
-    val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
 
     try {
       if (!iconsDir.exists) {
         iconsDir.mkdirs() //Make the missing directories
       }
       if (!iconsFile.exists) {
+        //Create a default json file
         iconsFile.createNewFile() //Make the missing file
-
         val fileWriter: FileWriter = new FileWriter(iconsFile)
-        val inputStream: InputStream = Beacons.getClass.getResourceAsStream("/assets/markerbeacons/icons.json")
+        val inputStream: InputStream = MarkerBeacons.getClass.getResourceAsStream("/assets/markerbeacons/icons.json")
 
         try {
           IOUtils.write(IOUtils.toString(inputStream), fileWriter)
@@ -78,7 +79,6 @@ object Beacons {
       while (reader.hasNext) {
         val iconData: IconData = gson.fromJson(reader, classOf[IconData])
         IconManager.iconList += iconData
-        println(iconData)
       }
       reader.endArray()
       reader.close()

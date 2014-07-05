@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage
 import java.io.{File, IOException}
 import javax.imageio.ImageIO
 
-import kihira.markerbeacons.common.Beacons
+import kihira.markerbeacons.common.MarkerBeacons
 import net.minecraft.client.renderer.texture.{AbstractTexture, TextureUtil}
 import net.minecraft.client.resources.IResourceManager
 
@@ -31,7 +31,7 @@ class IconTexture(val imageFile : File) extends AbstractTexture {
       val bufferedimage: BufferedImage = ImageIO.read(imageFile)
       TextureUtil.uploadTextureImageAllocate(this.getGlTextureId, bufferedimage, false, false)  
     } catch {
-      case ioe: IOException => Beacons.logger.warn("Unable to load icon texture from file", ioe)
+      case ioe: IOException => MarkerBeacons.logger.warn("Unable to load icon texture from file", ioe)
     }
   }
 }

@@ -16,8 +16,8 @@ package kihira.markerbeacons.client.gui
 
 import java.util
 
+import kihira.foxlib.client.gui.{GuiList, GuiSlider}
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
-import kihira.markerbeacons.client.render.RenderHelper
 import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry
@@ -43,9 +43,9 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
   var sliderYAngle: GuiSlider = null
   var sliderCount: GuiSlider = null
   var sliderRotationSpeed: GuiSlider = null
-  var listIcon: GuiIconList = null
+  var listIcon: GuiList = null
 
-  val backgroundTexture: ResourceLocation = new ResourceLocation(Beacons.MOD_ID, "textures/gui/beacon.png")
+  val backgroundTexture: ResourceLocation = new ResourceLocation(MarkerBeacons.MOD_ID, "textures/gui/beacon.png")
   val xSize: Int = 256
   val ySize: Int = 200
 
@@ -76,20 +76,26 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
       this.textField.setTextColor(textComp.textColour)
     }
 
-    this.listIcon = new GuiIconList(110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, IconManager.iconList)
+    this.listIcon = new GuiList(110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, {
+        val list: ListBuffer[IGuiListEntry] = ListBuffer[IGuiListEntry]()
+        for (icon: IconData <- IconManager.iconList) {
+            list += new IconEntry(icon)
+        }
+        list
+    })
     if (imageComp != null) {
-      this.listIcon.currentIndex = this.listIcon.iconList.indexOf(imageComp.iconData)
+      this.listIcon.currentIndex = IconManager.iconList.indexOf(imageComp.iconData)
     }
 
-    this.sliderHeight = new GuiSlider(2, leftBorder + 5, topBorder + 5, 120, 20, StatCollector.translateToLocal("gui.button.height"), 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
-    this.sliderScale = new GuiSlider(3, leftBorder + 5, topBorder + 27, 120, 20, StatCollector.translateToLocal("gui.button.scale"), 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
-    this.sliderOffset = new GuiSlider(4, leftBorder + 5, topBorder + 49, 120, 20, StatCollector.translateToLocal("gui.button.offset"), 0, 20, tileEntityMarkerBeacon.beaconData.offset, 2)
+    this.sliderHeight = new GuiSlider(null, 2, leftBorder + 5, topBorder + 5, 120, 20, StatCollector.translateToLocal("gui.button.height"), 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
+    this.sliderScale = new GuiSlider(null, 3, leftBorder + 5, topBorder + 27, 120, 20, StatCollector.translateToLocal("gui.button.scale"), 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
+    this.sliderOffset = new GuiSlider(null, 4, leftBorder + 5, topBorder + 49, 120, 20, StatCollector.translateToLocal("gui.button.offset"), 0, 20, tileEntityMarkerBeacon.beaconData.offset, 2)
     this.toggleXAxis = new GuiButtonToggle(5, leftBorder + 5, topBorder + this.ySize - 47, 80, 20, "facex")
     this.toggleYAxis = new GuiButtonToggle(6, leftBorder + 5 + 82, topBorder + this.ySize - 47, 80, 20, "facey")
-    this.sliderXAngle = new GuiSlider(7, leftBorder + 5, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleX, 1)
-    this.sliderYAngle = new GuiSlider(8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleY, 1)
-    this.sliderCount = new GuiSlider(9, leftBorder + 5, topBorder + 71, 120, 20, StatCollector.translateToLocal("gui.button.count"), 1, 25, tileEntityMarkerBeacon.beaconData.count, 0)
-    this.sliderRotationSpeed = new GuiSlider(10, leftBorder + 5, topBorder + 93, 120 ,20, StatCollector.translateToLocal("gui.button.rotspeed"), -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, 2)
+    this.sliderXAngle = new GuiSlider(null, 7, leftBorder + 5, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleX, 1)
+    this.sliderYAngle = new GuiSlider(null, 8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleY, 1)
+    this.sliderCount = new GuiSlider(null, 9, leftBorder + 5, topBorder + 71, 120, 20, StatCollector.translateToLocal("gui.button.count"), 1, 25, tileEntityMarkerBeacon.beaconData.count, 0)
+    this.sliderRotationSpeed = new GuiSlider(null, 10, leftBorder + 5, topBorder + 93, 120 ,20, StatCollector.translateToLocal("gui.button.rotspeed"), -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, 2)
 
     this.toggleXAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerX
     this.toggleYAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerY
@@ -112,7 +118,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
   override protected def actionPerformed(button : GuiButton) {
     button.id match {
       case 0 =>
-        this.saveSettings()
+        this.saveBeaconData()
         Minecraft.getMinecraft.displayGuiScreen(null)
       case 1 => Minecraft.getMinecraft.displayGuiScreen(null)
       case 5 =>
@@ -144,7 +150,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     this.textField.textboxKeyTyped(par1, par2)
   }
 
-  private def saveSettings() {
+  private def saveBeaconData() {
     val beaconData: BeaconData = tileEntityMarkerBeacon.beaconData
 
     beaconData.height = this.sliderHeight.currentValue
@@ -164,7 +170,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     beaconData.components.add(textComp)
 
     val imageComp: ImageComponent  = new ImageComponent
-    if (this.listIcon.currentIndex > 0 && this.listIcon.currentIndex < this.listIcon.iconList.size) imageComp.iconData = this.listIcon.iconList(this.listIcon.currentIndex)
+    if (this.listIcon.currentIndex > 0 && this.listIcon.currentIndex < this.listIcon.getSize) imageComp.iconData = IconManager.iconList(this.listIcon.currentIndex)
     beaconData.components.add(imageComp)
 
     PacketHandler.eventChannel.sendToServer(PacketHandler.createBeaconDataPacket(tileEntityMarkerBeacon.getWorldObj.provider.dimensionId,
@@ -215,73 +221,37 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     }
   }
 
-  class GuiIconList(width: Int, height: Int, top: Int, bottom: Int, leftM: Int, val iconList: ListBuffer[IconData]) extends GuiListExtended(Minecraft.getMinecraft, width, height, top, bottom, 20) {
-    this.left = leftM
-    this.right = this.left + width
-
-    var listLength: Int = 1000
-    var currentIndex: Int = 0
-    var iconEntryList: ListBuffer[IGuiListEntry] = {
-      val list: ListBuffer[IGuiListEntry] = ListBuffer[IGuiListEntry]()
-      for (icon: IconData <- iconList) {
-        list += new IconEntry(icon)
-      }
-      list
-    }
-
-    //Use a scissor helper here so it renders within its bounds
-    //Also change list length to allow selecting the entries correctly
-    override def drawScreen(p_148128_1_ : Int, p_148128_2_ : Int, p_148128_3_ : Float) {
-      RenderHelper.startGlScissor(this.left, this.top, this.width, this.height)
-      this.listLength = 2000
-      super.drawScreen(p_148128_1_, p_148128_2_, p_148128_3_)
-      this.listLength = this.width
-      RenderHelper.endGlScissor()
-    }
-
-    override def elementClicked(index : Int, p_148144_2_ : Boolean, p_148144_3_ : Int, p_148144_4_ : Int) {
-      this.currentIndex = index
-    }
-
-    override def isSelected(index : Int): Boolean = index == this.currentIndex
-
-    override def getSize: Int = this.iconEntryList.size
-    override def getListEntry(index: Int): IGuiListEntry = this.iconEntryList(index)
-    override def getScrollBarX: Int = this.right - 6
-    override def getListWidth: Int = this.listLength
-
     class IconEntry(iconData: IconData) extends IGuiListEntry {
-      override def drawEntry(var1: Int, x: Int, y: Int, listWidth: Int, var5: Int, var6: Tessellator, var7: Int, var8: Int, var9: Boolean) {
-        IconManager.bindTexture(iconData)
-        GL11.glPushMatrix()
-        //Move to this point to allow us to scale properly
-        GL11.glTranslatef(left + 1, y - 1, 0)
-        //If wider then taller (or equal), scale along width
-        if (iconData.width >= iconData.height) {
-          //Center icon
-          if (iconData.width > iconData.height) GL11.glTranslatef(0F, 18F / iconData.width, 0F)
-          GL11.glScalef(18F / iconData.width, 18F / iconData.width, 1F)
+        override def drawEntry(var1: Int, x: Int, y: Int, listWidth: Int, var5: Int, var6: Tessellator, var7: Int, var8: Int, var9: Boolean) {
+            IconManager.bindTexture(iconData)
+            GL11.glPushMatrix()
+            //Move to this point to allow us to scale properly
+            GL11.glTranslatef(listIcon.left + 1, y - 1, 0)
+            //If wider then taller (or equal), scale along width
+            if (iconData.width >= iconData.height) {
+                //Center icon
+                if (iconData.width > iconData.height) GL11.glTranslatef(0F, 18F / iconData.width, 0F)
+                GL11.glScalef(18F / iconData.width, 18F / iconData.width, 1F)
+            }
+            else {
+                //Center the icon
+                GL11.glTranslatef(18F / iconData.height, 18F / iconData.height, 0F)
+                GL11.glScalef(18F / iconData.height, 18F / iconData.height, 1F)
+            }
+            //Draw the icon on a GUI
+            Gui.func_146110_a(0, 0, iconData.minU, iconData.minV, iconData.width, iconData.height, iconData.textureXSize, iconData.textureYSize)
+            GL11.glPopMatrix()
+
+            //Render the icon name
+            val fontRenderer: FontRenderer = Minecraft.getMinecraft.fontRenderer
+            fontRenderer.drawString(iconData.iconName, listIcon.left + 22, y + 5, 0xFFFFFF)
+            GL11.glColor4f(1F, 1F, 1F, 1F)
         }
-        else {
-          //Center the icon
-          GL11.glTranslatef(18F / iconData.height, 18F / iconData.height, 0F)
-          GL11.glScalef(18F / iconData.height, 18F / iconData.height, 1F)
+
+        override def mousePressed(index: Int, var2: Int, var3: Int, var4: Int, var5: Int, var6: Int): Boolean = {
+            true
         }
-        //Draw the icon on a GUI
-        Gui.func_146110_a(0, 0, iconData.minU, iconData.minV, iconData.width, iconData.height, iconData.textureXSize, iconData.textureYSize)
-        GL11.glPopMatrix()
 
-        //Render the icon name
-        val fontRenderer: FontRenderer = Minecraft.getMinecraft.fontRenderer
-        fontRenderer.drawString(iconData.iconName, left + 22, y + 5, 0xFFFFFF)
-        GL11.glColor4f(1F, 1F, 1F, 1F)
-      }
-
-      override def mousePressed(index: Int, var2: Int, var3: Int, var4: Int, var5: Int, var6: Int): Boolean = {
-        true
-      }
-
-      override def mouseReleased(index: Int, var2: Int, var3: Int, var4: Int, var5: Int, var6: Int) {}
+        override def mouseReleased(index: Int, var2: Int, var3: Int, var4: Int, var5: Int, var6: Int) {}
     }
-  }
 }

@@ -53,10 +53,10 @@ object PacketHandler {
 
     if (world != null && world.getTileEntity(x, y, z).isInstanceOf[TileEntityMarkerBeacon]) {
       val tileEntity: TileEntityMarkerBeacon = world.getTileEntity(x, y, z).asInstanceOf[TileEntityMarkerBeacon]
-      tileEntity.beaconData = GsonHelper.getGson.fromJson(beaconDataJson, classOf[BeaconData])
+      tileEntity.beaconData = MarkerBeacons.gson.fromJson(beaconDataJson, classOf[BeaconData])
       tileEntity.markDirty()
     }
-    else Beacons.logger.log(Level.WARN, "Failed to update Beacon Data at (%s) %s, %s, %s with %s", Array(dimID, x, y, z, beaconDataJson))
+    else MarkerBeacons.logger.log(Level.WARN, "Failed to update Beacon Data at (%s) %s, %s, %s with %s", Array(dimID, x, y, z, beaconDataJson))
   }
 
   def createBeaconDataPacket(dimID: Int, x: Int, y: Int, z: Int, beaconData: BeaconData): FMLProxyPacket = {
