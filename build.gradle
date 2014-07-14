@@ -23,7 +23,7 @@ group = "kihira.markerbeacons" // http://maven.apache.org/guides/mini/guide-nami
 archivesBaseName = "MarkerBeacons"
 
 minecraft {
-    version = "1.7.10-10.13.0.1152"
+    version = "1.7.10-10.13.0.1180"
 }
 
 dependencies {
