@@ -33,7 +33,7 @@ object MarkerBeacons {
 
   final val MOD_ID = "markerbeacons"
   final val logger: Logger = LogManager.getLogger(MOD_ID)
-  final val gson: Gson = GsonHelper.createGson(Seq(classOf[ImageComponent], classOf[TextComponent], classOf[LogoComponent]):_*)
+  final val gson: Gson = GsonHelper.createGson(Seq(classOf[ImageComponent], classOf[TextComponent], classOf[LogoComponent]) : _*)
 
   @SidedProxy(clientSide = "kihira.markerbeacons.proxy.ClientProxy", serverSide = "kihira.markerbeacons.proxy.CommonProxy")
   var proxy: CommonProxy = null
