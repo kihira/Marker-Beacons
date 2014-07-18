@@ -14,7 +14,7 @@
 
 package kihira.markerbeacons.client.render
 
-import kihira.foxlib.common.gson.EntityHelper
+import kihira.foxlib.common.EntityHelper
 import kihira.markerbeacons.common._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.OpenGlHelper
