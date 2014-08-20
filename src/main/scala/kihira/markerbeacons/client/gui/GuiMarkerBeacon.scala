@@ -28,7 +28,6 @@ import org.lwjgl.input.Keyboard
 import org.lwjgl.opengl.GL11
 
 import scala.collection.JavaConversions._
-import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks._
 
 class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends GuiScreen {
@@ -76,26 +75,26 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
       this.textField.setTextColor(textComp.textColour)
     }
 
-    this.listIcon = new GuiList(110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, {
-        val list: ListBuffer[IGuiListEntry] = ListBuffer[IGuiListEntry]()
+    this.listIcon = new GuiList(null, 110, 120, topBorder + 5, topBorder + 125, leftBorder + 140, {
+        val list: util.List[IGuiListEntry] = new util.ArrayList[IGuiListEntry]()
         for (icon: IconData <- IconManager.iconList) {
             list += new IconEntry(icon)
         }
         list
     })
     if (imageComp != null) {
-      this.listIcon.currentIndex = IconManager.iconList.indexOf(imageComp.iconData)
+      this.listIcon.setCurrrentIndex(IconManager.iconList.indexOf(imageComp.iconData))
     }
 
-    this.sliderHeight = new GuiSlider(null, 2, leftBorder + 5, topBorder + 5, 120, 20, StatCollector.translateToLocal("gui.button.height"), 1, 50, tileEntityMarkerBeacon.beaconData.height, 0)
-    this.sliderScale = new GuiSlider(null, 3, leftBorder + 5, topBorder + 27, 120, 20, StatCollector.translateToLocal("gui.button.scale"), 0, 5, tileEntityMarkerBeacon.beaconData.scale, 2)
-    this.sliderOffset = new GuiSlider(null, 4, leftBorder + 5, topBorder + 49, 120, 20, StatCollector.translateToLocal("gui.button.offset"), 0, 20, tileEntityMarkerBeacon.beaconData.offset, 2)
+    this.sliderHeight = new GuiSlider(null, 2, leftBorder + 5, topBorder + 5, 120, 1, 50, tileEntityMarkerBeacon.beaconData.height, StatCollector.translateToLocal("gui.button.height"))
+    this.sliderScale = new GuiSlider(null, 3, leftBorder + 5, topBorder + 27, 120, 0, 5, tileEntityMarkerBeacon.beaconData.scale, StatCollector.translateToLocal("gui.button.scale"))
+    this.sliderOffset = new GuiSlider(null, 4, leftBorder + 5, topBorder + 49, 120, 0, 20, tileEntityMarkerBeacon.beaconData.offset, StatCollector.translateToLocal("gui.button.offset"))
     this.toggleXAxis = new GuiButtonToggle(5, leftBorder + 5, topBorder + this.ySize - 47, 80, 20, "facex")
     this.toggleYAxis = new GuiButtonToggle(6, leftBorder + 5 + 82, topBorder + this.ySize - 47, 80, 20, "facey")
-    this.sliderXAngle = new GuiSlider(null, 7, leftBorder + 5, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleX, 1)
-    this.sliderYAngle = new GuiSlider(null, 8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 20, StatCollector.translateToLocal("gui.button.anglex"), 0, 360, tileEntityMarkerBeacon.beaconData.angleY, 1)
-    this.sliderCount = new GuiSlider(null, 9, leftBorder + 5, topBorder + 71, 120, 20, StatCollector.translateToLocal("gui.button.count"), 1, 25, tileEntityMarkerBeacon.beaconData.count, 0)
-    this.sliderRotationSpeed = new GuiSlider(null, 10, leftBorder + 5, topBorder + 93, 120 ,20, StatCollector.translateToLocal("gui.button.rotspeed"), -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, 2)
+    this.sliderXAngle = new GuiSlider(null, 7, leftBorder + 5, topBorder + this.ySize - 25, 80, 0, 360, tileEntityMarkerBeacon.beaconData.angleX, StatCollector.translateToLocal("gui.button.anglex"))
+    this.sliderYAngle = new GuiSlider(null, 8, leftBorder + 5 + 82, topBorder + this.ySize - 25, 80, 0, 360, tileEntityMarkerBeacon.beaconData.angleY, StatCollector.translateToLocal("gui.button.anglex"))
+    this.sliderCount = new GuiSlider(null, 9, leftBorder + 5, topBorder + 71, 120, 1, 25, tileEntityMarkerBeacon.beaconData.count, StatCollector.translateToLocal("gui.button.count"))
+    this.sliderRotationSpeed = new GuiSlider(null, 10, leftBorder + 5, topBorder + 93, 120, -10, 10, tileEntityMarkerBeacon.beaconData.rotationSpeed, StatCollector.translateToLocal("gui.button.rotspeed"))
 
     this.toggleXAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerX
     this.toggleYAxis.enabled = tileEntityMarkerBeacon.beaconData.facePlayerY
@@ -170,7 +169,7 @@ class GuiMarkerBeacon(tileEntityMarkerBeacon: TileEntityMarkerBeacon) extends Gu
     beaconData.components.add(textComp)
 
     val imageComp: ImageComponent  = new ImageComponent
-    if (this.listIcon.currentIndex > 0 && this.listIcon.currentIndex < this.listIcon.getSize) imageComp.iconData = IconManager.iconList(this.listIcon.currentIndex)
+    if (this.listIcon.getCurrrentIndex > 0 && this.listIcon.getCurrrentIndex < this.listIcon.getEntries.size()) imageComp.iconData = IconManager.iconList(this.listIcon.getCurrrentIndex)
     beaconData.components.add(imageComp)
 
     PacketHandler.eventChannel.sendToServer(PacketHandler.createBeaconDataPacket(tileEntityMarkerBeacon.getWorldObj.provider.dimensionId,
