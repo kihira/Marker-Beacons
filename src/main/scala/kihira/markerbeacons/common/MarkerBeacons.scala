@@ -28,7 +28,7 @@ import kihira.markerbeacons.proxy.CommonProxy
 import org.apache.commons.io.IOUtils
 import org.apache.logging.log4j.{LogManager, Logger}
 
-@Mod(modid = MarkerBeacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala", dependencies = "required-after:foxlib@[0.1.0,)")
+@Mod(modid = MarkerBeacons.MOD_ID, name = "Marker Beacons", version = "$version", modLanguage = "scala")
 object MarkerBeacons {
 
   final val MOD_ID = "markerbeacons"
