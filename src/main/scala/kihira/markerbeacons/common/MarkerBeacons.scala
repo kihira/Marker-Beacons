@@ -22,7 +22,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{Mod, SidedProxy}
-import kihira.foxlib.common.gson.GsonHelper
 import kihira.markerbeacons.client.icon.{IconData, IconManager}
 import kihira.markerbeacons.proxy.CommonProxy
 import org.apache.commons.io.IOUtils
@@ -33,7 +32,7 @@ object MarkerBeacons {
 
   final val MOD_ID = "markerbeacons"
   final val logger: Logger = LogManager.getLogger(MOD_ID)
-  final val gson: Gson = GsonHelper.createGson(Seq(classOf[ImageComponent], classOf[TextComponent], classOf[LogoComponent]) : _*)
+  final val gson: Gson = kihira.foxlib.common.gson.GsonHelper.createGson(Seq(classOf[ImageComponent], classOf[TextComponent], classOf[LogoComponent]) : _*)
 
   @SidedProxy(clientSide = "kihira.markerbeacons.proxy.ClientProxy", serverSide = "kihira.markerbeacons.proxy.CommonProxy")
   var proxy: CommonProxy = null
